@@ -1,0 +1,64 @@
+Dr. Memory version 2.6.0 build 0 built on Sep 21 2023 17:48:48
+Windows version: WinVer=105;Rel=2009;Build=19045;Edition=Core
+Dr. Memory results for pid 4356: "Tri√¢nguloPascal_DrMemory.exe"
+Application cmdline: ""C:\Users\Dienifer Ledebuhr\Desktop\Tri√¢nguloPascal_DrMemory.exe""
+Recorded 124 suppression(s) from default C:\Program Files (x86)\Dr. Memory\bin\suppress-default.txt
+
+Error #1: UNINITIALIZED READ: reading register eax
+# 0 KERNELBASE.dll!FindNextFileW      +0x20e    (0x76f3f0fe <KERNELBASE.dll+0x10f0fe>)
+# 1 KERNELBASE.dll!FindNextFileA      +0x33     (0x76f3d584 <KERNELBASE.dll+0x10d584>)
+# 2 .text                              [../../../src/gcc-6.3.0/libgcc/config/i386/cygwin.S:184]
+# 3 __mingw_glob                       [../../../src/gcc-6.3.0/libgcc/config/i386/cygwin.S:184]
+# 4 _setargv                           [C:/Users/Dienifer Ledebuhr/Documents/a/Tri‚nguloPascal_DrMemory.c:68]
+# 5 .text                        
+# 6 mainCRTStartup               
+# 7 ntdll.dll!__RtlUserThreadStart
+Note: @0:00:00.626 in thread 7564
+Note: instruction: cmp    %eax $0x0000001a
+
+Error #2: UNINITIALIZED READ: reading register eax
+# 0 KERNELBASE.dll!FindNextFileW      +0x23b    (0x76f3f12b <KERNELBASE.dll+0x10f12b>)
+# 1 KERNELBASE.dll!FindNextFileA      +0x33     (0x76f3d584 <KERNELBASE.dll+0x10d584>)
+# 2 .text                              [../../../src/gcc-6.3.0/libgcc/config/i386/cygwin.S:184]
+# 3 __mingw_glob                       [../../../src/gcc-6.3.0/libgcc/config/i386/cygwin.S:184]
+# 4 _setargv                           [C:/Users/Dienifer Ledebuhr/Documents/a/Tri‚nguloPascal_DrMemory.c:68]
+# 5 .text                        
+# 6 mainCRTStartup               
+# 7 ntdll.dll!__RtlUserThreadStart
+Note: @0:00:00.627 in thread 7564
+Note: instruction: data16 mov    %cx -> 0x00000234(%ebx,%eax,2)
+
+Error #3: UNINITIALIZED READ: reading register eax
+# 0 KERNELBASE.dll!FindNextFileW      +0x167    (0x76f3f057 <KERNELBASE.dll+0x10f057>)
+# 1 KERNELBASE.dll!FindNextFileA      +0x33     (0x76f3d584 <KERNELBASE.dll+0x10d584>)
+# 2 .text                              [../../../src/gcc-6.3.0/libgcc/config/i386/cygwin.S:184]
+# 3 __mingw_glob                       [../../../src/gcc-6.3.0/libgcc/config/i386/cygwin.S:184]
+# 4 _setargv                           [C:/Users/Dienifer Ledebuhr/Documents/a/Tri‚nguloPascal_DrMemory.c:68]
+# 5 .text                        
+# 6 mainCRTStartup               
+# 7 ntdll.dll!__RtlUserThreadStart
+Note: @0:00:00.636 in thread 7564
+Note: instruction: test   %eax %eax
+
+===========================================================================
+FINAL SUMMARY:
+
+DUPLICATE ERROR COUNTS:
+	Error #   1:      8
+	Error #   2:      8
+
+SUPPRESSIONS USED:
+
+ERRORS FOUND:
+      0 unique,     0 total unaddressable access(es)
+      3 unique,    17 total uninitialized access(es)
+      0 unique,     0 total invalid heap argument(s)
+      0 unique,     0 total GDI usage error(s)
+      0 unique,     0 total handle leak(s)
+      0 unique,     0 total warning(s)
+      0 unique,     0 total,      0 byte(s) of leak(s)
+      0 unique,     0 total,      0 byte(s) of possible leak(s)
+ERRORS IGNORED:
+      6 unique,     6 total,   4450 byte(s) of still-reachable allocation(s)
+         (re-run with "-show_reachable" for details)
+Details: C:\Users\Dienifer Ledebuhr\AppData\Roaming\Dr. Memory\DrMemory-Tri√¢nguloPascal_DrMemory.exe.4356.000\results.txt
