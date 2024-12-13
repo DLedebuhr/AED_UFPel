@@ -12,29 +12,32 @@
 
 ***
 
-### _Problema: 118. Triângulo de Pascal_
+### _118. Triângulo de Pascal_
 
 ***
 
-_Informações sobre o problema estão no README que acompanha o codigo._
+_Dado um inteiro numRows, retorne o primeiro numRows do triângulo de Pascal._
 
-_O problema foi resolvido e concluído durante a aula, enviado e aceito pelo LeetCode. Em casa, realizei algumas alterações com o objetivo de organizar melhor o código._
-
-_O código original possuía comentários incorretos e pouco claros. Por esse motivo, decidi removê-los, ajustar a estrutura, e reenviar uma versão mais limpa e organizada._
-
-
+_No triângulo de Pascal, cada número é a soma dos dois números diretamente acima dele._
 
 ### _Codigos_
 
 ***
 
+_O problema foi resolvido e concluído durante a aula, enviado e aceito pelo LeetCode. Em casa, realizei algumas alterações com o objetivo de organizar melhor o código._
+
+_O código original possuía comentários incorretos e pouco claros. Por esse motivo, decidi removê-los, ajustar a estrutura, e reenviar uma versão mais limpa e organizada._
+
+***
+
 * Código desenvolvido em aula:
+  
   * `Ex1.c`
     
 * Código revisado e reorganizado em casa:
   * `TriânguloPascal_EmCasa.c` 
 
-* Versão criada exclusivamente para testar com o Dr.
+* Versão criada exclusivamente para testar com o Dr. Memory
   * `TriânguloPascal_DrMemory.c` -> Inclui uma função main retirada da internet para possibilitar os testes.
 
 
@@ -47,7 +50,7 @@ _O código funciona conforme o esperado. No entanto, tive algumas dificuldades a
 
 _Tive experiência prévia com um problema semelhante o que ajudou a construir uma base funcional, mas a solução final foi resultado de várias tentativas e erros._
 
-_Além disso, precisei utilizar desenhos das matrizes para me localizar durante a implementação dos laços._
+_Além disso, precisei utilizar desenhos para me localizar durante a implementação dos laços._
 
 _Desenhos são essenciais quando o assunto é ponteiros._
 
