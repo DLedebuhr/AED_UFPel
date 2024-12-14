@@ -10,7 +10,7 @@ int** generate(int numRows, int* returnSize, int** returnColumnSizes) {
         
         (*returnColumnSizes)[i] = i + 1; 
 
-        matriz[i] = (int*) malloc ((i + 1) * sizeof(int));  
+        matriz[i] = ( int* ) malloc ( ( i + 1 ) * sizeof(int) );  
         
         for (int j = 0; j <= i; j++) { 
 
