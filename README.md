@@ -8,6 +8,7 @@
 |  |
 | ------- |
 | [0026-remove-duplicates-from-sorted-array](https://github.com/DLedebuhr/AED_UFPel/tree/master/0026-remove-duplicates-from-sorted-array) |
+| [0027-remove-element](https://github.com/DLedebuhr/AED_UFPel/tree/master/0027-remove-element) |
 | [0035-search-insert-position](https://github.com/DLedebuhr/AED_UFPel/tree/master/0035-search-insert-position) |
 | [0118-pascals-triangle](https://github.com/DLedebuhr/AED_UFPel/tree/master/0118-pascals-triangle) |
 ## Dynamic Programming
@@ -22,4 +23,5 @@
 |  |
 | ------- |
 | [0026-remove-duplicates-from-sorted-array](https://github.com/DLedebuhr/AED_UFPel/tree/master/0026-remove-duplicates-from-sorted-array) |
+| [0027-remove-element](https://github.com/DLedebuhr/AED_UFPel/tree/master/0027-remove-element) |
 <!---LeetCode Topics End-->
