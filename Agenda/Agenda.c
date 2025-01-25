@@ -61,7 +61,7 @@ int main() {
 
         getchar ();
 
-        printf("\n");
+        printf ("\n");
 
         switch (*((int *) pBuffer)) {
             
@@ -123,7 +123,7 @@ void adicionarPessoa (void **pBuffer) {
 
     do {
 
-        *((int *) pBuffer + 3) = 0;
+        *((int *) *pBuffer + 3) = 0;
 
         printf (" | Digite o nome para registro: ");
 
@@ -135,17 +135,17 @@ void adicionarPessoa (void **pBuffer) {
         if (strlen(((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO))) == 0) {
 
             printf("\n-- Nome Invalido! Tente Novamente...\n\n");
-            *((int *) pBuffer + 3) = 1;
+            *((int *) *pBuffer + 3) = 1;
 
         }
 
-    } while (*((int *) pBuffer + 3) == 1);
+    } while (*((int *) *pBuffer + 3) == 1);
 
     // --
 
     do {
 
-        *((int *) pBuffer + 3) = 0;
+        *((int *) *pBuffer + 3) = 0;
 
         printf (" | Digite a idade para registro: ");
 
@@ -156,17 +156,17 @@ void adicionarPessoa (void **pBuffer) {
         if ((*(int *) ((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO) + TAMANHO_NOME)) < 0) {
 
             printf ("\n-- Idade Invalida! Tente Novamente...\n\n");
-            *((int *) pBuffer + 3) = 1;
+            *((int *) *pBuffer + 3) = 1;
 
         }
 
-    } while (*((int *) pBuffer + 3) == 1);
+    } while (*((int *) *pBuffer + 3) == 1);
     
     // -- 
 
     do {
 
-        *((int *) pBuffer + 3) = 0;
+        *((int *) *pBuffer + 3) = 0;
 
         printf(" | Digite o email para registro: ");
 
@@ -178,11 +178,11 @@ void adicionarPessoa (void **pBuffer) {
         if (strlen((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO) + TAMANHO_NOME + sizeof(int)) == 0) {
 
             printf("\n-- Email Invalido! Tente Novamente...\n\n");
-            *((int *) pBuffer + 3) = 1;
+            *((int *) *pBuffer + 3) = 1;
 
         }
 
-    } while (*((int *) pBuffer + 3) == 1);
+    } while (*((int *) *pBuffer + 3) == 1);
 
     (*((int *) *pBuffer + 1))++;
 
@@ -201,11 +201,15 @@ void removerPessoa(void **pBuffer) {
 
     }
 
+    // --
+
     printf (" | Digite o nome para remover na Agenda: ");
 
     fgets (((char *) *pBuffer + 4 * sizeof(int)), TAMANHO_BUSCA, stdin);
     
     ((char *) *pBuffer + 4 * sizeof(int))[strcspn(((char *) *pBuffer + 4 * sizeof(int)), "\n")] = '\0';
+
+    // -- 
 
     for (*((int *) *pBuffer + 2) = 0; *((int *) *pBuffer + 2) < *((int *) *pBuffer + 1); (*((int *) *pBuffer + 2))++) {
 
@@ -226,6 +230,8 @@ void removerPessoa(void **pBuffer) {
         }
 
     } printf ("\n");
+
+    // -- 
 
     if (!(*((int *) *pBuffer + 3))) {
 
@@ -268,11 +274,15 @@ void buscarPessoa (void *pBuffer) {
 
     }
 
+    // --
+
     printf (" | Digite o nome para buscar na Agenda: ");
 
     fgets (((char *) pBuffer + 4 * sizeof(int)), TAMANHO_BUSCA, stdin);
     
     ((char *) pBuffer + 4 * sizeof(int))[strcspn(((char *) pBuffer + 4 * sizeof(int)), "\n")] = '\0';
+
+    // --
 
     for (*((int *) pBuffer + 2) = 0; *((int *) pBuffer + 2) < *((int *) pBuffer + 1); (*((int *) pBuffer + 2))++) {
 
@@ -310,19 +320,19 @@ void listarTodos (void *pBuffer) {
 
     } else {
 
-        printf("-- Listando...\n\n");
+        printf ("-- Listando...\n\n");
 
         for (*((int *) pBuffer + 2) = 0; *((int *) pBuffer + 2) < *((int *) pBuffer + 1); (*((int *) pBuffer + 2))++) {
 
-            printf("Registro [%d]\n\n", *((int *) pBuffer + 2));
+            printf ("Registro [%d]\n\n", *((int *) pBuffer + 2));
 
-            printf(" | Nome: %s\n", (char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO));
-            printf(" | Idade: %d\n", *((int *) ((char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO) + TAMANHO_NOME)));
-            printf(" | Email: %s\n", (char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO) + TAMANHO_NOME + sizeof(int));
+            printf (" | Nome: %s\n", (char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO));
+            printf (" | Idade: %d\n", *((int *) ((char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO) + TAMANHO_NOME)));
+            printf (" | Email: %s\n", (char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO) + TAMANHO_NOME + sizeof(int));
         
         }
 
-        printf("\n");
+        printf ("\n");
 
     }
 }

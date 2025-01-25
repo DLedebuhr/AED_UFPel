@@ -54,10 +54,12 @@ ___Regras:___
      
 * Arquivo fornecido pelo Dr. Memory
   
-  * ``
+  
    
 * Link para o video explicativo:
-  * 
+   
+
+
 
 ### _Testes Realizados_
 
