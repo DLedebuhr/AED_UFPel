@@ -21,6 +21,16 @@
 // ((char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA)                                                 // REGISTROS COMEÇAM APARTIR DAQUI
 // ((char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 1) * TAMANHO_BLOCO)       // BLOCOS
 
+// -- Auxiliares de explicação
+
+//  [ESCOLHA] [CONTADOR] [AUXILIAR_1] [AUXILIAR_2] [BUSCA] [[TAMANHO_NOME][IDADE][TAMANHO_EMAIL]] [[TAMANHO_NOME][IDADE][TAMANHO_EMAIL]]...
+
+//  (char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO)                                    // NOME
+
+//  (int *) ((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO) + TAMANHO_NOME            // IDADE
+
+//  ((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO) + TAMANHO_NOME + sizeof(int))     // EMAIL
+
 // -- Funções
 
 void adicionarPessoa(void **pBuffer);
