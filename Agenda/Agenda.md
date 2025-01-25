@@ -52,13 +52,10 @@ ___Regras:___
   
   * `Agenda.c`
      
-* Arquivo fornecido pelo Dr. Memory
+* Arquivo fornecido pelo Dr. Memory:
   
-  
+  * 'Agenda.txt'
    
-* Link para o video explicativo:
-   
-
 
 
 ### _Testes Realizados_
