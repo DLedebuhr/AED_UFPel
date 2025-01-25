@@ -45,7 +45,7 @@ int main() {
     *((int *) pBuffer + 1) = 0;     // Contador
     *((int *) pBuffer + 2) = 0;     // Auxiliar de loops
     *((int *) pBuffer + 3) = 0;     // Auxiliar geral
-
+    
     while (*((int *) pBuffer) != 5) {
 
         printf ("-- Menu:\n\n");
@@ -87,12 +87,12 @@ int main() {
 
             case 5: 
 
-                printf ("Programa Encerrado!\n\n");
+                printf ("-- Programa Encerrado!\n\n");
                 break;
         
             default:
 
-                printf ("Escolha invalida!\n\n");
+                printf ("-- Escolha invalida!\n\n");
                 break;
 
         }
@@ -244,7 +244,12 @@ void removerPessoa(void **pBuffer) {
 
         memcpy (((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + ((*((int *) *pBuffer + 3)) * TAMANHO_BLOCO)), ((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + ((*((int *) *pBuffer + 3) + 1) * TAMANHO_BLOCO)), TAMANHO_BLOCO);
 
-    }
+    } 
+
+    // - [0][1][2][3][4][5]
+    // - [0][1][3][3][4][5]
+    // - [0][1][3][4][4][5]
+    // - [0][1][3][4][5][5]
 
     (*((int *) *pBuffer + 1))--;
 
@@ -320,11 +325,11 @@ void listarTodos (void *pBuffer) {
 
     } else {
 
-        printf ("-- Listando...\n\n");
+        printf ("-- Listando...\n");
 
         for (*((int *) pBuffer + 2) = 0; *((int *) pBuffer + 2) < *((int *) pBuffer + 1); (*((int *) pBuffer + 2))++) {
 
-            printf ("Registro [%d]\n\n", *((int *) pBuffer + 2));
+            printf ("\nRegistro [%d]\n\n", *((int *) pBuffer + 2));
 
             printf (" | Nome: %s\n", (char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO));
             printf (" | Idade: %d\n", *((int *) ((char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO) + TAMANHO_NOME)));
