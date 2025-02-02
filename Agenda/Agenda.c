@@ -1,3 +1,5 @@
+// -- Bibliotecas
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -10,7 +12,7 @@
 #define TAM_EMAIL 100
 #define TAM_BLOCO sizeof(int)
 
-// -- pBuffer
+// -- Divisão do pBuffer
 
 // -- Controles
 
