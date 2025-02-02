@@ -10,11 +10,10 @@
 #define TAM_NOME 50
 #define TAM_IDADE sizeof(int)
 #define TAM_EMAIL 100
-#define TAM_BLOCO sizeof(int)
 
-// -- Divisão do pBuffer
+// // -- Divisão do pBuffer
 
-// -- Controles
+// // -- Controles
 
 // *((int *) pBuffer)      // ESCOLHA
 // *((int *) pBuffer + 1)  // CONTADOR
@@ -35,9 +34,9 @@
 
 // REGISTROS + sizeof(int) + NOME + IDADE + EMAIL + sizeof(int) + NOME + IDADE + EMAIL...
 
-// // --
+// --
 
-// [ESCOLHA] [CONTADOR] [AUXILIAR_1] [AUXILIAR_2] [TAM_BUSCA] [TAM_NOME] [TAM_IDADE] [TAM_EMAIL] [TAM_BLOCO][[NOME][IDADE][EMAIL]] [TAM_BLOCO][[NOME][IDADE][EMAIL]]...
+// [ESCOLHA] [CONTADOR] [AUXILIAR_1] [AUXILIAR_2] [TAM_REGISTROS] [TAM_BUSCA] [TAM_NOME] [TAM_IDADE] [TAM_EMAIL] [TAM_BLOCO][[NOME][IDADE][EMAIL]] [TAM_BLOCO][[NOME][IDADE][EMAIL]]...
 
 // -- Funções
 
@@ -197,6 +196,8 @@ void AdicionarPessoa (void **pBuffer) {
     printf("\n");
 
     // --
+    
+    (*((int *) *pBuffer + 4)) = (*((int *) *pBuffer + 4)) + sizeof(int) + (strlen((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA) + 1) + sizeof(int) + (strlen((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE) + 1);
 
     void *novoBuffer = realloc (*pBuffer, (5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE + TAM_EMAIL + (*((int *) pBuffer + 4))));
 
@@ -211,9 +212,9 @@ void AdicionarPessoa (void **pBuffer) {
 
     // --
 
-    // [ESCOLHA] [CONTADOR] [AUXILIAR_1] [AUXILIAR_2] [TAM_BUSCA] [TAM_NOME] [TAM_IDADE] [TAM_EMAIL] [TAM_BLOCO][[NOME][IDADE][EMAIL]] [TAM_BLOCO][[NOME][IDADE][EMAIL]]...
+    // [ESCOLHA] [CONTADOR] [AUXILIAR_1] [AUXILIAR_2] [TAM_REGISTROS] [TAM_BUSCA] [TAM_NOME] [TAM_IDADE] [TAM_EMAIL] [TAM_BLOCO][[NOME][IDADE][EMAIL]]...
 
-    void * ponteiro = ((int *)((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE + TAM_EMAIL));
+    void * ponteiro = ((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE + TAM_EMAIL);
 
     for ((*((int *) *pBuffer + 2)) = 0; (*((int *) *pBuffer + 2)) < (*((int *) *pBuffer + 1)); (*((int *) *pBuffer + 2))++) {
 
@@ -222,20 +223,20 @@ void AdicionarPessoa (void **pBuffer) {
     }
 
     *((int *) ponteiro) = sizeof(int) + (strlen((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA) + 1) + sizeof(int) + (strlen((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE) + 1); 
-
+    
     ponteiro = (char *) ponteiro + sizeof(int);
 
     strcpy((char *) ponteiro, (char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA);
+
     ponteiro = (char *) ponteiro + strlen((char *) ponteiro) + 1;
 
     *((int *) ponteiro) = *(int *)((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME);
+    
     ponteiro = (char *) ponteiro + sizeof(int);
 
     strcpy((char *) ponteiro, (char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE);
 
     (*((int *) *pBuffer + 1))++;
-
-    (*((int *) *pBuffer + 4)) = (*((int *) *pBuffer + 4)) + (strlen((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA) + 1) + sizeof(int) + (strlen((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE) + 1);
     
     printf("-- Registro Adicionado com Sucesso!\n\n");
 
@@ -243,7 +244,7 @@ void AdicionarPessoa (void **pBuffer) {
 
 void RemoverPessoa (void **pBuffer) {
 
-  (*((int *) *pBuffer + 3)) = 0;
+    (*((int *) *pBuffer + 3)) = 0;
 
     if ((*((int *) *pBuffer + 1)) == 0) {
 
