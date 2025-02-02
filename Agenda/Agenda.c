@@ -1,53 +1,61 @@
-// -- Bibliotecas
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
 // -- Constantes
 
-#define TAMANHO_NOME 100 
-#define TAMANHO_EMAIL 100
-#define TAMANHO_BUSCA 100
-#define TAMANHO_BLOCO (TAMANHO_NOME + sizeof(int) + TAMANHO_EMAIL)
+#define TAM_BUSCA 50
+#define TAM_NOME 50
+#define TAM_IDADE sizeof(int)
+#define TAM_EMAIL 100
+#define TAM_BLOCO sizeof(int)
 
-// -- Divisões do pBuffer
+// -- pBuffer
 
-// *((int *) pBuffer)                                                                                   // ESCOLHA
-// *((int *) pBuffer + 1)                                                                               // CONTADOR
-// *((int *) pBuffer + 2)                                                                               // PRIMEIRA "CAIXINHA" AUXILIAR
-// *((int *) pBuffer + 3)                                                                               // SEGUNDA "CAIXINHA" AUXILIAR
-// ((char *) pBuffer + 4 * sizeof(int))                                                                 // PALAVRA PARA BUSCA
-// ((char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA)                                                 // REGISTROS COMEÇAM APARTIR DAQUI
-// ((char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 1) * TAMANHO_BLOCO)       // BLOCOS
+// -- Controles
 
-// -- Auxiliares de explicação
+// *((int *) pBuffer)      // ESCOLHA
+// *((int *) pBuffer + 1)  // CONTADOR
+// *((int *) pBuffer + 2)  // AUXILIAR 1
+// *((int *) pBuffer + 3)  // AUXILIAR 2
+// *((int *) pBuffer + 4)  // TAM_REGISTROS
 
-//  [ESCOLHA] [CONTADOR] [AUXILIAR_1] [AUXILIAR_2] [BUSCA] [[TAMANHO_NOME][IDADE][TAMANHO_EMAIL]] [[TAMANHO_NOME][IDADE][TAMANHO_EMAIL]]...
+// // -- Temporarios 
 
-//  (char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO)                                    // NOME
+// ((char *) pBuffer + 5 * sizeof(int))                                        // TEMP_BUSCA
+// ((char *) pBuffer + 5 * sizeof(int) + TAM_BUSCA)                            // TEMP_NOME
+// ((char *) pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME)                 // TEMP_IDADE
+// ((char *) pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE)     // TEMP_EMAIL
 
-//  (int *) ((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO) + TAMANHO_NOME            // IDADE
+// // -- Registros
 
-//  ((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO) + TAMANHO_NOME + sizeof(int))     // EMAIL
+// ((char *) pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE + TAM_EMAIL)     // REGISTROS 
+
+// REGISTROS + sizeof(int) + NOME + IDADE + EMAIL + sizeof(int) + NOME + IDADE + EMAIL...
+
+// // --
+
+// [ESCOLHA] [CONTADOR] [AUXILIAR_1] [AUXILIAR_2] [TAM_BUSCA] [TAM_NOME] [TAM_IDADE] [TAM_EMAIL] [TAM_BLOCO][[NOME][IDADE][EMAIL]] [TAM_BLOCO][[NOME][IDADE][EMAIL]]...
 
 // -- Funções
 
-void adicionarPessoa(void **pBuffer);
-void removerPessoa(void **pBuffer);
-void buscarPessoa(void *pBuffer);
-void listarTodos(void *pBuffer);
+void AdicionarPessoa (void **pBuffer);
+void RemoverPessoa (void **pBuffer);
+void BuscarPessoa (void *pBuffer);
+void ListarTodos (void *pBuffer);
 
 // -- Função Principal
 
-int main() {
+int main () {
 
-    void *pBuffer = malloc (4 * sizeof(int) + TAMANHO_BUSCA);
+    printf("-- Agenda\n\n");
+
+    void * pBuffer = malloc (5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE + TAM_EMAIL);
 
     if (!pBuffer) {
 
-        printf ("Erro ao alocar memoria!\n");
-        return -1;
+        printf("-- Erro ao alocar memoria para o pBuffer!\n\n");
+        exit(1);
 
     }
 
@@ -55,6 +63,7 @@ int main() {
     *((int *) pBuffer + 1) = 0;     // Contador
     *((int *) pBuffer + 2) = 0;     // Auxiliar de loops
     *((int *) pBuffer + 3) = 0;     // Auxiliar geral
+    *((int *) pBuffer + 4) = 0;     // Auxiliar geral
     
     while (*((int *) pBuffer) != 5) {
 
@@ -77,22 +86,22 @@ int main() {
             
             case 1: 
 
-                adicionarPessoa (&pBuffer);
+                AdicionarPessoa (&pBuffer);
                 break;
 
             case 2: 
 
-                removerPessoa (&pBuffer);
+                RemoverPessoa (&pBuffer);
                 break;
 
             case 3: 
 
-                buscarPessoa (pBuffer);
+                BuscarPessoa (pBuffer);
                 break;
 
             case 4: 
 
-                listarTodos (pBuffer);
+                ListarTodos (pBuffer);
                 break;
 
             case 5: 
@@ -110,24 +119,15 @@ int main() {
 
     free (pBuffer);
 
+    pBuffer = NULL;
+
     return 0;
 
     // /ᐠ｡ꞈ｡ᐟ\ //
 
 }
 
-void adicionarPessoa (void **pBuffer) {
-
-    void *novoBuffer = realloc (*pBuffer, 4 * sizeof(int) + TAMANHO_BUSCA + ((*((int *) *pBuffer + 1) + 1) * TAMANHO_BLOCO));
-    
-    if (!novoBuffer) {
-        
-        printf ("Erro ao alocar memoria!\n\n");
-        return;
-    
-    }
-
-    *pBuffer = novoBuffer;
+void AdicionarPessoa (void **pBuffer) {
 
     printf ("-- Novo Registro: \n\n");
 
@@ -137,19 +137,18 @@ void adicionarPessoa (void **pBuffer) {
 
         printf (" | Digite o nome para registro: ");
 
-        fgets ((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO), TAMANHO_NOME, stdin);
-        
-        ((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO))
-        [strcspn((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO), "\n")] = '\0';
+        fgets (((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA), TAM_NOME, stdin);
 
-        if (strlen(((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO))) == 0) {
+        ((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA)[strcspn(((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA), "\n")] = '\0';
 
-            printf("\n-- Nome Invalido! Tente Novamente...\n\n");
+        if (strlen((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA) == 0) {
+
+            printf ("\n-- Nome Invalido! Tente Novamente...\n\n");
             *((int *) *pBuffer + 3) = 1;
 
         }
 
-    } while (*((int *) *pBuffer + 3) == 1);
+    } while (*((int *) *pBuffer + 3) == 1); 
 
     // --
 
@@ -159,11 +158,11 @@ void adicionarPessoa (void **pBuffer) {
 
         printf (" | Digite a idade para registro: ");
 
-        scanf ("%d", (int *) ((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO) + TAMANHO_NOME));
-        
+        scanf ("%d", (int *)((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME));
+
         getchar ();
-        
-        if ((*(int *) ((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO) + TAMANHO_NOME)) < 0) {
+
+        if ((*(int *)((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME)) < 0) {
 
             printf ("\n-- Idade Invalida! Tente Novamente...\n\n");
             *((int *) *pBuffer + 3) = 1;
@@ -178,14 +177,13 @@ void adicionarPessoa (void **pBuffer) {
 
         *((int *) *pBuffer + 3) = 0;
 
-        printf(" | Digite o email para registro: ");
+        printf (" | Digite o email para registro: ");
 
-        fgets((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO) + TAMANHO_NOME + sizeof(int), TAMANHO_EMAIL, stdin);
+        fgets (((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE), TAM_EMAIL, stdin);
 
-        ((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO) + TAMANHO_NOME + sizeof(int))
-        [strcspn((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO) + TAMANHO_NOME + sizeof(int), "\n")] = '\0';
+        ((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE)[strcspn(((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE), "\n")] = '\0';
 
-        if (strlen((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO) + TAMANHO_NOME + sizeof(int)) == 0) {
+        if (strlen((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE) == 0) {
 
             printf("\n-- Email Invalido! Tente Novamente...\n\n");
             *((int *) *pBuffer + 3) = 1;
@@ -194,44 +192,89 @@ void adicionarPessoa (void **pBuffer) {
 
     } while (*((int *) *pBuffer + 3) == 1);
 
-    (*((int *) *pBuffer + 1))++;
-
     printf("\n");
 
-}
+    // --
 
-void removerPessoa(void **pBuffer) {
+    void *novoBuffer = realloc (*pBuffer, (5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE + TAM_EMAIL + (*((int *) pBuffer + 4))));
 
-    (*((int *) *pBuffer + 3)) = 0;
+    if (!novoBuffer) {
 
-    if ((*((int *) *pBuffer + 1)) == 0) {
-
-        printf ("-- A Agenda esta vazia!\n\n");
+        printf ("-- Erro ao realocar memoria!\n\n");
         return;
 
     }
 
+    *pBuffer = novoBuffer;
+
     // --
 
-    printf (" | Digite o nome para remover na Agenda: ");
+    // [ESCOLHA] [CONTADOR] [AUXILIAR_1] [AUXILIAR_2] [TAM_BUSCA] [TAM_NOME] [TAM_IDADE] [TAM_EMAIL] [TAM_BLOCO][[NOME][IDADE][EMAIL]] [TAM_BLOCO][[NOME][IDADE][EMAIL]]...
 
-    fgets (((char *) *pBuffer + 4 * sizeof(int)), TAMANHO_BUSCA, stdin);
+    void * ponteiro = ((int *)((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE + TAM_EMAIL));
+
+    for ((*((int *) *pBuffer + 2)) = 0; (*((int *) *pBuffer + 2)) < (*((int *) *pBuffer + 1)); (*((int *) *pBuffer + 2))++) {
+
+        ponteiro = (char *) ponteiro + *((int *) ponteiro);
+
+    }
+
+    *((int *) ponteiro) = sizeof(int) + (strlen((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA) + 1) + sizeof(int) + (strlen((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE) + 1); 
+
+    ponteiro = (char *) ponteiro + sizeof(int);
+
+    strcpy((char *) ponteiro, (char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA);
+    ponteiro = (char *) ponteiro + strlen((char *) ponteiro) + 1;
+
+    *((int *) ponteiro) = *(int *)((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME);
+    ponteiro = (char *) ponteiro + sizeof(int);
+
+    strcpy((char *) ponteiro, (char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE);
+
+    (*((int *) *pBuffer + 1))++;
+
+    (*((int *) *pBuffer + 4)) = (*((int *) *pBuffer + 4)) + (strlen((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA) + 1) + sizeof(int) + (strlen((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE) + 1);
     
-    ((char *) *pBuffer + 4 * sizeof(int))[strcspn(((char *) *pBuffer + 4 * sizeof(int)), "\n")] = '\0';
+    printf("-- Registro Adicionado com Sucesso!\n\n");
 
+}
+
+void RemoverPessoa (void **pBuffer) {
+
+  (*((int *) *pBuffer + 3)) = 0;
+
+    if ((*((int *) *pBuffer + 1)) == 0) {
+
+        printf("-- A Agenda esta vazia!\n\n");
+        return;
+
+    }
+    
     // -- 
 
-    for (*((int *) *pBuffer + 2) = 0; *((int *) *pBuffer + 2) < *((int *) *pBuffer + 1); (*((int *) *pBuffer + 2))++) {
+    printf(" | Digite o nome para remover na Agenda: ");
 
-        if (strcmp(((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 2) * TAMANHO_BLOCO)), ((char *) *pBuffer + 4 * sizeof(int))) == 0) {
+    fgets(((char *) *pBuffer + 5 * sizeof(int)), TAM_BUSCA, stdin);
 
-            printf ("\n-- Registro correspondente a [%s] encontrado com sucesso!\n", ((char *) *pBuffer + 4 * sizeof(int)));
+    ((char *) *pBuffer + 5 * sizeof(int))[strcspn(((char *) *pBuffer + 5 * sizeof(int)), "\n")] = '\0';
 
-            printf ("\nRegistro [%d]\n\n", *((int *) *pBuffer + 2));
+    // --
 
-            printf (" | Nome: %s\n", (char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 2) * TAMANHO_BLOCO));
-            printf (" | Idade: %d\n", *((int *) ((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 2) * TAMANHO_BLOCO) + TAMANHO_NOME)));
-            printf (" | Email: %s\n", (char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 2) * TAMANHO_BLOCO) + TAMANHO_NOME + sizeof(int));
+    void * ponteiro = ((char *) *pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE + TAM_EMAIL);
+    
+    for ((*((int *) *pBuffer + 2)) = 0; (*((int *) *pBuffer + 2)) < (*((int *) *pBuffer + 1)); (*((int *) *pBuffer + 2))++) {
+        
+        if (strcmp((char *) ((char *) ponteiro + sizeof(int)), ((char *) *pBuffer + 5 * sizeof(int))) == 0) {
+
+            printf ("\n-- Registro correspondente a [%s] encontrado com sucesso!\n", ((char *) *pBuffer + 5 * sizeof(int)));
+
+            printf("\n Registro [%d]\n\n", *((int *) *pBuffer + 2));
+
+            printf(" | Nome: %s\n", (char *) ((char *) ponteiro + sizeof(int)));
+
+            printf(" | Idade: %d\n", *((int *) ((char *) ponteiro + sizeof(int) + strlen((char *) ((char *) ponteiro + sizeof(int))) + 1)));
+
+            printf(" | Email: %s\n", (char *) ((char *) ponteiro + sizeof(int) + strlen((char *) ((char *) ponteiro + sizeof(int))) + 1 + sizeof(int)));
 
             (*((int *) *pBuffer + 3)) = 1;
 
@@ -239,77 +282,93 @@ void removerPessoa(void **pBuffer) {
 
         }
 
-    } printf ("\n");
+        ponteiro = (char *) ponteiro + *((int *) ponteiro);
 
-    // -- 
+    }
+
+    (*((int *) *pBuffer)) = *((int *) ponteiro);  
+    
+    printf("\n");
 
     if (!(*((int *) *pBuffer + 3))) {
 
-        printf ("-- Nenhum registro encontrado para a busca [%s]!\n\n", ((char *) *pBuffer + 4 * sizeof(int)));
+        printf("-- Nenhum registro encontrado para a busca [%s]!\n\n", ((char *) *pBuffer + 5 * sizeof(int)));
         return;
 
     }
 
+    // --
+
     for ((*((int *) *pBuffer + 3)) = (*((int *) *pBuffer + 2)); (*((int *) *pBuffer + 3)) < (*((int *) *pBuffer + 1) - 1); (*((int *) *pBuffer + 3))++) {
+        
+        void * proximoPonteiro = ((char *) ponteiro + *((int *) ponteiro));
+        
+        memcpy((char *) ponteiro, (char *) proximoPonteiro , (*((int *) proximoPonteiro)));
 
-        memcpy (((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + ((*((int *) *pBuffer + 3)) * TAMANHO_BLOCO)), ((char *) *pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + ((*((int *) *pBuffer + 3) + 1) * TAMANHO_BLOCO)), TAMANHO_BLOCO);
+        ponteiro = proximoPonteiro;
 
-    } 
+    }
 
     // - [0][1][2][3][4][5]
     // - [0][1][3][3][4][5]
     // - [0][1][3][4][4][5]
     // - [0][1][3][4][5][5]
 
-    (*((int *) *pBuffer + 1))--;
+    (*((int *) *pBuffer + 1))--;  
 
-    void *novoBuffer = realloc (*pBuffer, 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) *pBuffer + 1) * TAMANHO_BLOCO));
-    
-    if (!novoBuffer && (*((int *) *pBuffer + 1)) > 0) { 
-        
-        printf ("Erro ao alocar memoria!\n\n");
+    (*((int *) *pBuffer + 4)) = (*((int *) *pBuffer + 4)) - (*((int *) *pBuffer));
+
+    void *novoBuffer = realloc (*pBuffer, (5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE + TAM_EMAIL + (*((int *) pBuffer + 4))));
+
+    if (novoBuffer == NULL) {
+
+        printf("-- Erro ao realocar memória!\n\n");
         return;
 
     }
 
-    *pBuffer = novoBuffer;
+    *pBuffer = novoBuffer;  
 
-    printf ("-- Registro removido com sucesso!\n\n");
+    printf("-- Registro removido com sucesso!\n\n");
 
 }
 
-void buscarPessoa (void *pBuffer) {
+void BuscarPessoa (void *pBuffer) {
 
     (*((int *) pBuffer + 3)) = 0;
 
     if ((*((int *) pBuffer + 1)) == 0) {
 
-        printf ("-- A Agenda esta vazia!\n\n");
+        printf("-- A Agenda esta vazia!\n\n");
         return;
 
     }
 
     // --
 
-    printf (" | Digite o nome para buscar na Agenda: ");
+    printf(" | Digite o nome para buscar na Agenda: ");
 
-    fgets (((char *) pBuffer + 4 * sizeof(int)), TAMANHO_BUSCA, stdin);
+    fgets(((char *) pBuffer + 5 * sizeof(int)), TAM_BUSCA, stdin);
     
-    ((char *) pBuffer + 4 * sizeof(int))[strcspn(((char *) pBuffer + 4 * sizeof(int)), "\n")] = '\0';
+    ((char *) pBuffer + 5 * sizeof(int))[strcspn(((char *) pBuffer + 5 * sizeof(int)), "\n")] = '\0'; 
 
     // --
 
-    for (*((int *) pBuffer + 2) = 0; *((int *) pBuffer + 2) < *((int *) pBuffer + 1); (*((int *) pBuffer + 2))++) {
+    void *ponteiro = (char *) pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE + TAM_EMAIL;
 
-        if (strcmp(((char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO)), ((char *) pBuffer + 4 * sizeof(int))) == 0) {
+     for (*((int *) pBuffer + 2) = 0; *((int *) pBuffer + 2) < *((int *) pBuffer + 1); (*((int *) pBuffer + 2))++) {
 
-            printf ("\n-- Registro correspondente a [%s] encontrado com sucesso!\n\n", ((char *) pBuffer + 4 * sizeof(int)));
+        if (strcmp((char *) ((char *) ponteiro + sizeof(int)), ((char *) pBuffer + 5 * sizeof(int))) == 0) {
 
-            printf ("Registro [%d]\n\n", *((int *) pBuffer + 2));
+            printf ("\n-- Registro correspondente a [%s] encontrado com sucesso!\n", ((char *) pBuffer + 5 * sizeof(int)));
 
-            printf (" | Nome: %s\n", (char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO));
-            printf (" | Idade: %d\n", *((int *) ((char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO) + TAMANHO_NOME)));
-            printf (" | Email: %s\n", (char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO) + TAMANHO_NOME + sizeof(int));
+            printf("\n Registro [%d]\n\n", *((int *) pBuffer + 2));
+
+            printf(" | Nome: %s\n", (char *) ((char *) ponteiro + sizeof(int)));
+
+            printf(" | Idade: %d\n", *((int *) ((char *) ponteiro + sizeof(int) + strlen((char *) ((char *) ponteiro + sizeof(int))) + 1)));
+
+            printf(" | Email: %s\n", (char *) ((char *) ponteiro + sizeof(int) + strlen((char *) ((char *) ponteiro + sizeof(int))) + 1 + sizeof(int)));
 
             (*((int *) pBuffer + 3)) = 1;
 
@@ -317,17 +376,20 @@ void buscarPessoa (void *pBuffer) {
 
         }
 
-    } printf ("\n");
+        ponteiro = (char *) ponteiro + *((int *) ponteiro);
+
+    }
+
+    printf("\n");
 
     if (!(*((int *) pBuffer + 3))) {
 
-        printf ("-- Nenhum registro encontrado para a busca [%s]!\n\n", ((char *) pBuffer + 4 * sizeof(int)));
-        return;
+        printf("-- Nenhum registro encontrado para a busca [%s]!\n\n", ((char *) pBuffer + 5 * sizeof(int)));
 
     }
 }
 
-void listarTodos (void *pBuffer) {
+void ListarTodos (void *pBuffer) {
 
     if ((*((int *) pBuffer + 1)) == 0) {
 
@@ -335,19 +397,25 @@ void listarTodos (void *pBuffer) {
 
     } else {
 
-        printf ("-- Listando...\n");
+        printf("-- Lista de Registros \n");
+
+        void *ponteiro = (char *) pBuffer + 5 * sizeof(int) + TAM_BUSCA + TAM_NOME + TAM_IDADE + TAM_EMAIL;
 
         for (*((int *) pBuffer + 2) = 0; *((int *) pBuffer + 2) < *((int *) pBuffer + 1); (*((int *) pBuffer + 2))++) {
 
-            printf ("\nRegistro [%d]\n\n", *((int *) pBuffer + 2));
+            printf("\n Registro [%d]\n\n", *((int *) pBuffer + 2));
 
-            printf (" | Nome: %s\n", (char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO));
-            printf (" | Idade: %d\n", *((int *) ((char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO) + TAMANHO_NOME)));
-            printf (" | Email: %s\n", (char *) pBuffer + 4 * sizeof(int) + TAMANHO_BUSCA + (*((int *) pBuffer + 2) * TAMANHO_BLOCO) + TAMANHO_NOME + sizeof(int));
-        
+            printf(" | Nome: %s\n", (char *) ((char *) ponteiro + sizeof(int)));
+
+            printf(" | Idade: %d\n", *((int *) ((char *) ponteiro + sizeof(int) + strlen((char *) ((char *) ponteiro + sizeof(int))) + 1)));
+
+            printf(" | Email: %s\n", (char *) ((char *) ponteiro + sizeof(int) + strlen((char *) ((char *) ponteiro + sizeof(int))) + 1 + sizeof(int)));
+
+            ponteiro = (char *) ponteiro + *((int *) ponteiro);
+
         }
 
-        printf ("\n");
-
+        printf("\n");
+    
     }
 }
