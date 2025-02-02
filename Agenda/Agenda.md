@@ -58,7 +58,7 @@ ___Regras:___
 
 * Codigo Antigo da Agenda:
   
-  * `AgendaAntiga.txt` 
+  * `AgendaAnterior.c` 
 
 
 ### _Testes Realizados_
