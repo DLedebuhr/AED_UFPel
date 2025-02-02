@@ -53,10 +53,12 @@ ___Regras:___
   * `Agenda.c`
      
 * Arquivo fornecido pelo Dr. Memory:
-  
-  * `Agenda.txt`
+
+  * `AgendaDrMemory.txt`
 
 * Codigo Antigo da Agenda:
+  
+  * `AgendaAntigo.txt`
 
 
 ### _Testes Realizados_
