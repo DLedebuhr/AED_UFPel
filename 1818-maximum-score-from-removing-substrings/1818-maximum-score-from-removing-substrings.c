@@ -1,13 +1,14 @@
 int removerSubstrings (char * s, char primeiro, char segundo, int xouy) {
 
+    char pilha[strlen(s) + 1];
     int topo = 0;
     int pontos = 0;
 
     for (int i = 0; s[i] != '\0'; i++) {
 
-        s[topo++] = s[i];
+        pilha[topo++] = s[i];
           
-        if (topo > 1 && s[topo - 2] == primeiro && s[topo - 1] == segundo) {
+        if (topo > 1 && pilha[topo - 2] == primeiro && pilha[topo - 1] == segundo) {
    
             topo = topo - 2;
             pontos++;
@@ -15,7 +16,8 @@ int removerSubstrings (char * s, char primeiro, char segundo, int xouy) {
         } 
     }
 
-    s[topo] = '\0';
+    pilha[topo] = '\0';
+    strcpy(s, pilha);
     
     return pontos * xouy;
 
