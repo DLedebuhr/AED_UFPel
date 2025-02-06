@@ -114,7 +114,7 @@ void Listar (Fila *FILA) {
     }
 }
 
-void Liberar(Fila *FILA) {
+void Liberar (Fila *FILA) {
 
     while (FILA -> Frente != NULL) {
 
