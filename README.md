@@ -6,10 +6,12 @@
 ## String
 |  |
 | ------- |
+| [0020-valid-parentheses](https://github.com/DLedebuhr/AED_UFPel/tree/master/0020-valid-parentheses) |
 | [1818-maximum-score-from-removing-substrings](https://github.com/DLedebuhr/AED_UFPel/tree/master/1818-maximum-score-from-removing-substrings) |
 ## Stack
 |  |
 | ------- |
+| [0020-valid-parentheses](https://github.com/DLedebuhr/AED_UFPel/tree/master/0020-valid-parentheses) |
 | [1818-maximum-score-from-removing-substrings](https://github.com/DLedebuhr/AED_UFPel/tree/master/1818-maximum-score-from-removing-substrings) |
 ## Greedy
 |  |
