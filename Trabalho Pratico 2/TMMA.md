@@ -1,9 +1,9 @@
-### _Trabalho Pratico 1 - ALGORITMOS E ESTRUTURAS DE DADOS I_
+### _Trabalho Pratico 2 - ALGORITMOS E ESTRUTURAS DE DADOS I_
 
 ***
 
 <img align="right" src="https://i.pinimg.com/736x/10/a5/44/10a544bcbd14d67c1e9272ab19883feb.jpg" alt="Imagem 1" style="border-radius: 10px; margin: 5px;" width="70">
-<img align="right" src="https://i.pinimg.com/736x/e9/3a/09/e93a0947a0fab44abf7c0bbdc79f828b.jpg" alt="Imagem 2" style="border-radius: 10px; margin: 5px;" width="70">
+<img align="right" src="https://i.pinimg.com/736x/e9/3a/09/e93a0947a0fab44abf7c0bbdc79f828b.jpg" alt="Imagem 2" style="border-radius: 10px; margin: 5px;" height="70">
 <img align="right" src="https://i.pinimg.com/736x/cd/c2/bd/cdc2bd48ec628071ee1e0e757e5c7131.jpg" alt="Imagem 3" style="border-radius: 10px; margin: 5px;" width="70">
 
 > _Aluna: Dienifer Bierhals Ledebuhr_ 
@@ -38,7 +38,7 @@ _Return the maximum possible average pass ratio after assigning the extraStudent
 
 * Codigo da solução aceita pelo LeetCode:
 
-  * 'TMMA.c'
+  * `TMMA.c`
 
 
 ### _Observações e Dificuldades_
@@ -58,6 +58,6 @@ _Comentei sobre isso no vídeo, mas não expliquei detalhadamente, pois a soluç
 
 ***
 
-_Os únicos testes realizados foram os do próprio LeetCode._
+ * _Os únicos testes realizados foram os do próprio LeetCode._
 
 ***
