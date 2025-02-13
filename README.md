@@ -25,4 +25,8 @@
 |  |
 | ------- |
 | [0019-remove-nth-node-from-end-of-list](https://github.com/DLedebuhr/AED_UFPel/tree/master/0019-remove-nth-node-from-end-of-list) |
+## Math
+|  |
+| ------- |
+| [0007-reverse-integer](https://github.com/DLedebuhr/AED_UFPel/tree/master/0007-reverse-integer) |
 <!---LeetCode Topics End-->
