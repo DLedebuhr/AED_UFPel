@@ -20,6 +20,7 @@
 ## Linked List
 |  |
 | ------- |
+| [0002-add-two-numbers](https://github.com/DLedebuhr/AED_UFPel/tree/master/0002-add-two-numbers) |
 | [0019-remove-nth-node-from-end-of-list](https://github.com/DLedebuhr/AED_UFPel/tree/master/0019-remove-nth-node-from-end-of-list) |
 ## Two Pointers
 |  |
@@ -28,5 +29,10 @@
 ## Math
 |  |
 | ------- |
+| [0002-add-two-numbers](https://github.com/DLedebuhr/AED_UFPel/tree/master/0002-add-two-numbers) |
 | [0007-reverse-integer](https://github.com/DLedebuhr/AED_UFPel/tree/master/0007-reverse-integer) |
+## Recursion
+|  |
+| ------- |
+| [0002-add-two-numbers](https://github.com/DLedebuhr/AED_UFPel/tree/master/0002-add-two-numbers) |
 <!---LeetCode Topics End-->
