@@ -35,4 +35,20 @@
 |  |
 | ------- |
 | [0002-add-two-numbers](https://github.com/DLedebuhr/AED_UFPel/tree/master/0002-add-two-numbers) |
+## Hash Table
+|  |
+| ------- |
+| [0508-most-frequent-subtree-sum](https://github.com/DLedebuhr/AED_UFPel/tree/master/0508-most-frequent-subtree-sum) |
+## Tree
+|  |
+| ------- |
+| [0508-most-frequent-subtree-sum](https://github.com/DLedebuhr/AED_UFPel/tree/master/0508-most-frequent-subtree-sum) |
+## Depth-First Search
+|  |
+| ------- |
+| [0508-most-frequent-subtree-sum](https://github.com/DLedebuhr/AED_UFPel/tree/master/0508-most-frequent-subtree-sum) |
+## Binary Tree
+|  |
+| ------- |
+| [0508-most-frequent-subtree-sum](https://github.com/DLedebuhr/AED_UFPel/tree/master/0508-most-frequent-subtree-sum) |
 <!---LeetCode Topics End-->
