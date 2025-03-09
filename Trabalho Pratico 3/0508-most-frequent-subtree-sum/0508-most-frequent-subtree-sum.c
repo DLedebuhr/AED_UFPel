@@ -45,7 +45,6 @@ int* findFrequentTreeSum(struct TreeNode* root, int* returnSize) {
 
     if (root == NULL) {
 
-        *returnSize = 0;
         return NULL;
 
     }
