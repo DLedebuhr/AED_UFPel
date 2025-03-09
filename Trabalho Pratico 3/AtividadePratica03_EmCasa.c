@@ -10,7 +10,7 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 
-int SomadorSub (struct TreeNode* root, int * Somador, int * Indice) {
+ int SomadorSub (struct TreeNode* root, int * Somador, int * Indice) {
 
     // root = Raiz
 
@@ -28,6 +28,14 @@ int SomadorSub (struct TreeNode* root, int * Somador, int * Indice) {
 
     return TotalSoma;
 
+    //        1 
+    //       / \        
+    //      2   3
+    //     / \ 
+    //    4   5
+
+    // Somador = [4, 5, 11, 3, 15]
+
 }
 
 int* findFrequentTreeSum(struct TreeNode* root, int* returnSize) {
@@ -37,6 +45,7 @@ int* findFrequentTreeSum(struct TreeNode* root, int* returnSize) {
 
     if (root == NULL) {
 
+        *returnSize = 0;
         return NULL;
 
     }
@@ -74,6 +83,9 @@ int* findFrequentTreeSum(struct TreeNode* root, int* returnSize) {
         }
     }
 
+    // Frequencia = [1, 1, 1, 1, 1]
+    // Valores = [4, 5, 11, 3, 15]
+
     int MaiorFrequencia = 0;
 
     for (i = 0; i < Contador; i++) {
@@ -85,6 +97,8 @@ int* findFrequentTreeSum(struct TreeNode* root, int* returnSize) {
         }
     }
 
+    // MaiorFrequencia = 1
+
     int Cont = 0;
 
     for (i = 0; i < Contador; i++) {
@@ -95,6 +109,8 @@ int* findFrequentTreeSum(struct TreeNode* root, int* returnSize) {
 
         }
     }
+
+    // Cont = 5
 
     int * Resultado;
     int ResultadoIndice = 0;
@@ -114,4 +130,6 @@ int* findFrequentTreeSum(struct TreeNode* root, int* returnSize) {
 
     return Resultado;
 
+    // *returnSize = 5
+    // Resultado = [4, 5, 11, 3, 15]
 }
