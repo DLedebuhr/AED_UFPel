@@ -37,7 +37,7 @@ _The subtree sum of a node is defined as the sum of all the node values formed b
 
 ***
 
-_Primeiramente, tive dificuldade em entender o enunciado do problema, mas um dos comentários me ajudou a esclarecer essa parte._ 
+_Inicialmente, tive dificuldade em entender o enunciado do problema, mas um dos comentários me ajudou a esclarecer essa parte._ 
 
 _Não consegui desenvolver um código aceito em aula, mas senti que estava no caminho certo, apenas olhando o problema pela perspectiva errada. No fim, a parte relacionada às árvores acabou sendo algo mais padrão, semelhante a outros exercícios, então bastou adaptar o que eu já conhecia. O problema surgiu na contagem das frequências: eu entendia o que precisava ser feito, mas tentei resolvê-lo seguindo um caminho errada. Entretanto, de todos as atividades, essa foi a que me senti mais tranquila fazendo._
 
