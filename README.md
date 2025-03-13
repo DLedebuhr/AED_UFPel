@@ -42,13 +42,20 @@
 ## Tree
 |  |
 | ------- |
+| [0100-same-tree](https://github.com/DLedebuhr/AED_UFPel/tree/master/0100-same-tree) |
 | [0508-most-frequent-subtree-sum](https://github.com/DLedebuhr/AED_UFPel/tree/master/0508-most-frequent-subtree-sum) |
 ## Depth-First Search
 |  |
 | ------- |
+| [0100-same-tree](https://github.com/DLedebuhr/AED_UFPel/tree/master/0100-same-tree) |
 | [0508-most-frequent-subtree-sum](https://github.com/DLedebuhr/AED_UFPel/tree/master/0508-most-frequent-subtree-sum) |
 ## Binary Tree
 |  |
 | ------- |
+| [0100-same-tree](https://github.com/DLedebuhr/AED_UFPel/tree/master/0100-same-tree) |
 | [0508-most-frequent-subtree-sum](https://github.com/DLedebuhr/AED_UFPel/tree/master/0508-most-frequent-subtree-sum) |
+## Breadth-First Search
+|  |
+| ------- |
+| [0100-same-tree](https://github.com/DLedebuhr/AED_UFPel/tree/master/0100-same-tree) |
 <!---LeetCode Topics End-->
