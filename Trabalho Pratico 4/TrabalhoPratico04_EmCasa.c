@@ -1,39 +1,51 @@
-void Ordenar (int* difficulty, int* profit, int Tamanho) {
-    
-    for (int i = 0; i < Tamanho - 1; i++) {
-        
-        for (int j = i + 1; j < Tamanho; j++) {
-            
-            if (difficulty[i] > difficulty[j]) {
-                
-                int tempD = difficulty[i];
-                difficulty[i] = difficulty[j];
-                difficulty[j] = tempD;
+int Comparar(const void* a, const void* b) {
 
-                int tempP = profit[i];
-                profit[i] = profit[j];
-                profit[j] = tempP;
-            
-            }
-        }
-    }
+    return (*(int *) a - *(int *) b);
+
 }
 
-void OrdenarTrabalhadores (int * worker, int Tamanho) {
+void OrdenarTrabalhadores(int* worker, int Tamanho) {
+   
+    qsort(worker, Tamanho, sizeof(int), Comparar);
 
-    for (int i = 0; i < Tamanho - 1; i++) {
+}
 
-        for (int j = i + 1; j < Tamanho; j++) {
-        
-            if (worker[i] > worker[j]) {
-        
-                int temp = worker[i];
-                worker[i] = worker[j];
-                worker[j] = temp;
-        
-            }
-        }
+typedef struct {
+
+    int Difficulty;
+    int Profit;
+
+} Auxiliar;
+
+int CompararAuxiliar (const void* a, const void* b) {
+
+    return ((Auxiliar *) a ) -> Difficulty - ((Auxiliar *) b ) -> Difficulty);
+
+}
+
+void Ordenar (int * difficulty, int * profit, int Tamanho) {
+
+    int i;
+
+    Auxiliar * Aux = (Auxiliar *) malloc (Tamanho * sizeof(Auxiliar));
+
+    for (i = 0; i < Tamanho; i++) {
+
+        Aux[i].Difficulty = difficulty[i];
+        Aux[i].Profit = profit[i];
+
     }
+
+    qsort(Aux, Tamanho, sizeof(Auxiliar), CompararAuxiliar);
+
+    for (i = 0; i < Tamanho; i++) {
+
+        difficulty[i] = Aux[i].Difficulty;
+        profit[i] = Aux[i].Profit;
+
+    }
+
+    free (Aux);
 
 }
 
@@ -54,15 +66,12 @@ int maxProfitAssignment(int* difficulty, int difficultySize, int* profit, int pr
 
     OrdenarTrabalhadores (worker, workerSize);
 
-    int Lucro = 0;
     int i;
-    int MaiorTrabalho = 0;
     int j = 0;
+    int Lucro = 0;
+    int MaiorTrabalho = 0;
 
     for (i = 0; i < workerSize; i++) {
-        
-        MaiorTrabalho = 0;
-        j = 0;
 
         while (j < difficultySize && worker[i] >= difficulty[j]) { 
 
