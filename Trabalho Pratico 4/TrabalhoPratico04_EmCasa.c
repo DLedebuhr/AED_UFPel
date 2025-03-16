@@ -19,7 +19,7 @@ typedef struct {
 
 int CompararAuxiliar (const void* a, const void* b) {
 
-    return ((Auxiliar *) a ) -> Difficulty - ((Auxiliar *) b ) -> Difficulty);
+    return ((Auxiliar *) a ) -> Difficulty - ((Auxiliar *) b ) -> Difficulty;
 
 }
 
